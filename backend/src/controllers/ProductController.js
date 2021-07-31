@@ -6,20 +6,23 @@ module.exports = {
     async indexAll(request, response) {
         const {page = 1, size = 10 } = request.query;
 
+        const [count] = await connection('products').count();
+        response.header('X-Total-Count', count['count(*)']);
+
+
         const products = await connection('products')
         .orderBy('name')
         .limit(size)
         .offset((page-1)*size)
         .select('*');
 
-        const [count] = await connection('products').count();
-        response.header('X-Total-Count', count['count(*)']);
-
+      
         return response.json(products);
     },
     async indexId(request, response){
         const {id} = request.params;
         const product = await connection('products').where('id',id).first();
+
         return response.json(product);
     },
     async create(request, response) {

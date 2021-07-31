@@ -10,16 +10,18 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
 import Paper from '@material-ui/core/Paper';
-
+import Pagination from '@material-ui/lab/Pagination';
 
 export default function List() {
     const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [numPages = 5, setNumPages] = useState(1);
+
     const history = useHistory();
 
     async function get_products() {
-        const products = await api.get('product');
+        const products = await api.get(`product?page=${page}`);
         setProducts(products.data);
-        return;
     }
     async function handle_delete(id){
         const response = await api.delete(`product/${id}`);
@@ -31,10 +33,11 @@ export default function List() {
 
     useEffect(() => {
         get_products();
-    }, [])
+    }, [][page])
 
     return (
         <div>
+            <Pagination count={10} color="primary" onChange={(event, page) => {setPage(page)}} />
             <Table>
                 <TableHead>
                     <TableRow>
