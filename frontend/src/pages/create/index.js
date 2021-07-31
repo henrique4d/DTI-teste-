@@ -9,7 +9,7 @@ export default function Create(props) {
     const [unitary_value, setUnitary_value] = useState(null);
     const history = useHistory();
 
-    async function handle_create(e){
+    async function handle_create(e) {
         e.preventDefault();
         console.log(name);
         console.log(quant);
@@ -28,17 +28,32 @@ export default function Create(props) {
         <div>
             <form onSubmit={handle_create}>
                 <text> Nome do produto </text>
-                <input type="text" value = {name} required onChange ={ e => {setName(e.target.value)}}></input>
+                <input
+                    type="text"
+                    value={name}
+                    required
+                    placeholder="Produto"
+                    onChange={e => { setName(e.target.value) }}
+                />
                 <text> Quantidade </text>
-                <input type="number"  value = {quant} required onChange={ e=> { setQuant(Math.max((e.target.value),0))}}></input>
+                <input
+                    type="number"
+                    value={quant}
+                    min="0"
+                    step="1"
+                    required
+                    onChange={e => { setQuant(Math.max((e.target.value), 0)) }}
+                />
                 <text> Valor Unitário </text>
-                <input type="number"  value = {unitary_value} required onChange={ e=> { setUnitary_value(Math.max((e.target.value),0))}}></input>
-
-
-
-                <button type = "submit"> Cadastrar </button>
-                <button onClick ={ ()=> {history.push('/')}}> Voltar</button>
-
+                <input
+                    type="number"
+                    value={unitary_value}
+                    required
+                    placeholder = "Valor unitário"
+                    onChange={e => { setUnitary_value(Math.max((e.target.value), 0)) }}
+                />
+                <button type="submit"> Cadastrar </button>
+                <button onClick={() => { history.push('/') }}> Voltar</button>
             </form>
         </div>
     )

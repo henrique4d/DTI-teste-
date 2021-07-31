@@ -10,7 +10,7 @@ export default function Edit(props) {
     const history = useHistory();
     const [id, setId] = useState(props.location.state.id);
 
-    async function handle_edit(e){
+    async function handle_edit(e) {
         e.preventDefault();
         let product = {
             name,
@@ -21,32 +21,47 @@ export default function Edit(props) {
         history.push('/');
     }
 
-    async function get_product(){
+    async function get_product() {
         const product = await api.get(`product/${id}`);
         setName(product.data.name);
         setQuant(product.data.quant);
         setUnitary_value(product.data.unitary_value);
     }
 
-    useEffect( ()=>{
+    useEffect(() => {
         get_product();
-    },[])
+    }, [])
 
     return (
         <div>
             <form onSubmit={handle_edit}>
                 <text> Nome do produto </text>
-                <input type="text" value = {name} required onChange ={ e => {setName(e.target.value)}}></input>
+                <input
+                    type="text"
+                    value={name}
+                    required
+                    placeholder="Produto"
+                    onChange={e => { setName(e.target.value) }}
+                />
                 <text> Quantidade </text>
-                <input type="number"  value = {quant} required onChange={ e=> { setQuant(Math.max((e.target.value),0))}}></input>
+                <input
+                    type="number"
+                    value={quant}
+                    min="0"
+                    step="1"
+                    required
+                    onChange={e => { setQuant(Math.max((e.target.value), 0)) }}
+                />
                 <text> Valor Unitário </text>
-                <input type="number"  value = {unitary_value} required onChange={ e=> { setUnitary_value(Math.max((e.target.value),0))}}></input>
-
-
-
-                <button type = "submit"> Editar </button>
-                <button onClick ={ ()=> {history.push('/')}}> Voltar</button>
-
+                <input
+                    type="number"
+                    value={unitary_value}
+                    required
+                    placeholder="Valor unitário"
+                    onChange={e => { setUnitary_value(Math.max((e.target.value), 0)) }}
+                />
+                <button type="submit"> Editar </button>
+                <button onClick={() => { history.push('/') }}> Voltar</button>
             </form>
         </div>
     )

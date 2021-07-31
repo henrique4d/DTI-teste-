@@ -47,7 +47,7 @@ export default function List() {
                         <TableCell> Nome </TableCell>
                         <TableCell> Quantidade </TableCell>
                         <TableCell> Valor Unitário </TableCell>
-                        <TableCell> EDITAR </TableCell>
+                        <TableCell> Editar </TableCell>
                         <TableCell> Excluir </TableCell>
                     </TableRow>
                 </TableHead>
@@ -57,7 +57,7 @@ export default function List() {
                             <TableRow>
                                 <TableCell> {product.name} </TableCell>
                                 <TableCell> {product.quant}</TableCell>
-                                <TableCell> {product.unitary_value} </TableCell>
+                                <TableCell> {product.unitary_value.toFixed(2)} R$ </TableCell>
                                 <TableCell> <button onClick = { () => {handle_edit(product.id)}}> Editar </button> </TableCell>
                                 <TableCell> <button onClick = { () => {handle_delete(product.id)}}> Excluir </button> </TableCell>        
                             </TableRow>
