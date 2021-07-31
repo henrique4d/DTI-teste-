@@ -45,7 +45,7 @@ export default function Edit(props) {
 
 
                 <button type = "submit"> Editar </button>
-
+                <button onClick ={ ()=> {history.push('/')}}> Voltar</button>
 
             </form>
         </div>

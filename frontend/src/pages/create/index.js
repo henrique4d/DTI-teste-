@@ -37,7 +37,7 @@ export default function Create(props) {
 
 
                 <button type = "submit"> Cadastrar </button>
-
+                <button onClick ={ ()=> {history.push('/')}}> Voltar</button>
 
             </form>
         </div>
