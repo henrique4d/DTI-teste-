@@ -21,7 +21,10 @@ export default function List() {
 
     async function get_products() {
         const products = await api.get(`product?page=${page}`);
-        setProducts(products.data);
+        setProducts(products.data.data);
+        const num_pages = products.data.num_pages;
+        setNumPages(num_pages);
+        if (page > num_pages) setPage(num_pages);
     }
     async function handle_delete(id){
         const response = await api.delete(`product/${id}`);
@@ -33,11 +36,11 @@ export default function List() {
 
     useEffect(() => {
         get_products();
-    }, [][page])
+    },[page])
 
     return (
         <div>
-            <Pagination count={10} color="primary" onChange={(event, page) => {setPage(page)}} />
+            <Pagination count={numPages} page={page} color="primary" onChange={(event, page) => {setPage(page)}} />
             <Table>
                 <TableHead>
                     <TableRow>

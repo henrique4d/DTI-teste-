@@ -15,9 +15,13 @@ module.exports = {
         .limit(size)
         .offset((page-1)*size)
         .select('*');
-
+        let resposta = {
+            "num_elements":count['count(*)'],
+            "num_pages":Math.ceil(count['count(*)']/size),
+            data:products
+        }
       
-        return response.json(products);
+        return response.json(resposta);
     },
     async indexId(request, response){
         const {id} = request.params;
