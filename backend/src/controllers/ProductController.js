@@ -4,7 +4,17 @@ const { connect } = require('http2');
 
 module.exports = {
     async indexAll(request, response) {
-        const products = await connection('products').orderBy('name').select('*');
+        const {page = 1, size = 10 } = request.query;
+
+        const products = await connection('products')
+        .orderBy('name')
+        .limit(size)
+        .offset((page-1)*size)
+        .select('*');
+
+        const [count] = await connection('products').count();
+        response.header('X-Total-Count', count['count(*)']);
+
         return response.json(products);
     },
     async indexId(request, response){
