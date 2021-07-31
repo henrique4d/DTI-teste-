@@ -110,7 +110,7 @@ Busca por uma arquitetura escalavel.
 **Decisão:**
 Criação de controllers responsáveis pelos métodos disponiveis na aplicação, estando todos agrupados na pasta controllers
 
-**Consequencias**
+**Consequencias:**
 Grande escalabilidade e manutebilidade, visto que modificações em um determinado método devem ser feitas atraves de modificações em um unico arquivo, e a adição de possíveis novas funcionalidades pode ser feita atraves da criação de novos controllers.
 
 	Abstração da interface web em paginas
@@ -124,5 +124,19 @@ Busca por uma arquitetura escalavel.
 **Decisão:**
 Criação de arquivos separados para o controle de cada pagina do frontend, estando todos agrupados na pasta pages
 
-**Consequencias**
+**Consequencias:**
 Grande escalabilidade e manutebilidade, visto que modificações em uma determinada página devem ser feitas atraves de modificações em um unico arquivo, e a adição de possíveis novas paginas pode ser feita atraves da criação de novos arquivos.
+
+	Separação da criação e edição em duas paginas
+
+**Status:**
+Aceito
+
+**Contexto:**
+Busca por uma arquitetura escalavel.
+
+**Decisão:**
+Criação de duas páginas separadas para as funcionalidades de criação e edição respectivamente.
+
+**Consequencias:**
+Grande escalabilidade e manutebilidade, visto que um erro especifico na criação ou edição é facilmente corrigivel, e nao ha problemas em uma possivel evolução da aplicação na qual sejam incluidos atribuitos que devem ser informados na criação e nao podem ser editados posteriormente.
