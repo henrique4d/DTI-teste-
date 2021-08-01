@@ -1,0 +1,44 @@
+
+
+
+.pagination {
+    background-color: white;
+    padding: 5px;
+    size:100px;
+}
+
+.header {
+    background-color: #512d6d;
+    align-items: center;
+    align-content: center;
+}
+
+.header_text{
+    color: white;
+    font-weight: 900;
+}
+
+.row {
+    background-color:#34aab6;
+}
+
+.row_text{
+    color: black;
+    font-weight: 900;
+}
+
+.table_button{
+    background-color: #addce1;
+    color:black;
+    font-weight: 900;
+}
+
+.cadastrar_button{
+
+    background-color: #addce1;
+    color:green;
+    font-weight: 900;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 17px;
+}

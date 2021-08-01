@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api'
 import { useHistory } from 'react-router';
+import './styles.css'
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -26,46 +27,84 @@ export default function List() {
         setNumPages(num_pages);
         if (page > num_pages) setPage(num_pages);
     }
-    async function handle_delete(id){
+    async function handle_delete(id) {
         const response = await api.delete(`product/${id}`);
         get_products();
     }
-    async function handle_edit(id){
-        history.push('edit',{id});
+    async function handle_edit(id) {
+        history.push('edit', { id });
     }
 
     useEffect(() => {
         get_products();
-    },[page])
+    }, [page])
 
     return (
-        <div>
-            <Pagination count={numPages} page={page} color="primary" onChange={(event, page) => {setPage(page)}} />
+        <div className="container">
+            <Pagination
+                count={numPages}
+                page={page}
+                color="primary"
+                onChange={(event, page) => { setPage(page) }}
+                className="pagination"
+            />
             <Table>
-                <TableHead>
+                <TableHead className="header">
                     <TableRow>
-                        <TableCell> Nome </TableCell>
-                        <TableCell> Quantidade </TableCell>
-                        <TableCell> Valor Unitário </TableCell>
-                        <TableCell> Editar </TableCell>
-                        <TableCell> Excluir </TableCell>
+                        <TableCell>
+                            <text className="header_text">
+                                Nome
+                            </text>
+                        </TableCell>
+                        <TableCell>
+                            <text className="header_text">
+                                Quantidade
+                            </text>
+                        </TableCell>
+                        <TableCell>
+                            <text className="header_text">
+                                Valor Unitário
+                            </text>
+                        </TableCell>
+                        <TableCell>
+                            <text className="header_text">
+                                Editar
+                            </text>
+                        </TableCell>
+                        <TableCell>
+                            <text className="header_text">
+                                Excluir
+                            </text>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {
                         products.map((product) =>
-                            <TableRow>
-                                <TableCell> {product.name} </TableCell>
-                                <TableCell> {product.quant}</TableCell>
-                                <TableCell> {product.unitary_value.toFixed(2)} R$ </TableCell>
-                                <TableCell> <button onClick = { () => {handle_edit(product.id)}}> Editar </button> </TableCell>
-                                <TableCell> <button onClick = { () => {handle_delete(product.id)}}> Excluir </button> </TableCell>        
+                            <TableRow className="row">
+                                <TableCell>
+                                    <text className="row_text">
+                                        {product.name}
+                                    </text>
+                                </TableCell>
+                                <TableCell>
+                                    <text className="row_text">
+                                        {product.quant}
+                                    </text>
+                                </TableCell>
+                                <TableCell>
+                                    <text className="row_text">
+                                        {product.unitary_value.toFixed(2)} R$
+                                    </text>
+                                </TableCell>
+                                <TableCell> <button className="table_button" onClick={() => { handle_edit(product.id) }}> Editar </button> </TableCell>
+                                <TableCell> <button className="table_button" onClick={() => { handle_delete(product.id) }}> Excluir </button> </TableCell>
                             </TableRow>
                         )
                     }
                 </TableBody>
             </Table>
-            <button onClick = {()=> {history.push('create')}} > Cadastrar novo produto </button>
+            <button className="cadastrar_button" onClick={() => { history.push('create') }} > Cadastrar novo produto </button>
         </div>
     )
 }

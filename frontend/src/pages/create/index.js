@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import api from '../../services/api'
 import { useHistory } from 'react-router';
+import './styles.css'
 
 export default function Create(props) {
     const [name, setName] = useState(null);
@@ -25,35 +26,49 @@ export default function Create(props) {
     }
 
     return (
-        <div>
+        <div className="form_container">
             <form onSubmit={handle_create}>
-                <text> Nome do produto </text>
-                <input
-                    type="text"
-                    value={name}
-                    required
-                    placeholder="Produto"
-                    onChange={e => { setName(e.target.value) }}
-                />
-                <text> Quantidade </text>
-                <input
-                    type="number"
-                    value={quant}
-                    min="0"
-                    step="1"
-                    required
-                    onChange={e => { setQuant(Math.max((e.target.value), 0)) }}
-                />
-                <text> Valor Unitário </text>
-                <input
-                    type="number"
-                    value={unitary_value}
-                    required
-                    placeholder = "Valor unitário"
-                    onChange={e => { setUnitary_value(Math.max((e.target.value), 0)) }}
-                />
-                <button type="submit"> Cadastrar </button>
-                <button onClick={() => { history.push('/') }}> Voltar</button>
+                <div className="attribute">
+                    <text className="attribute_text"> Nome do produto </text>
+                    <input
+                        type="text"
+                        value={name}
+                        required
+                        placeholder="Produto"
+                        onChange={e => { setName(e.target.value) }}
+                        className="attribute_input"
+                    />
+                </div>
+
+                <div className="attribute">
+                    <text className="attribute_text"> Quantidade </text>
+                    <input
+                        type="number"
+                        value={quant}
+                        min="0"
+                        step="1"
+                        required
+                        onChange={e => { setQuant(Math.max((e.target.value), 0)) }}
+                        className="attribute_input"
+                    />
+                </div>
+                <div className="attribute">
+                    <text className="attribute_text"> Valor Unitário </text>
+                    <input
+                        type="number"
+                        value={unitary_value}
+                        setp="any"
+                        required
+                        placeholder="Valor unitário"
+                        onChange={e => { setUnitary_value(Math.max((e.target.value), 0)) }}
+                        className="attribute_input"
+
+                    />
+                </div>
+                <div className="button_container">
+                    <button className = "button" type="submit"> Cadastrar </button>
+                    <button className = "button" onClick={() => { history.push('/') }}> Voltar</button>
+                </div>
             </form>
         </div>
     )
