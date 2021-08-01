@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
 import api from '../../services/api'
 import { useHistory } from 'react-router';
 
 export default function Edit(props) {
-    const [name, setName] = useState(null);
+    const [name, setName] = useState("");
     const [quant, setQuant] = useState(0);
-    const [unitary_value, setUnitary_value] = useState(null);
+    const [unitary_value, setUnitary_value] = useState("");
     const history = useHistory();
-    const [id, setId] = useState(props.location.state.id);
+    const [id] = useState(props.location.state.id);
 
     async function handle_edit(e) {
         e.preventDefault();
@@ -17,20 +16,24 @@ export default function Edit(props) {
             quant,
             unitary_value
         }
-        const response = await api.put(`product/${id}`, product);
+        await api.put(`product/${id}`, product);
         history.push('/');
     }
 
-    async function get_product() {
+    
+    
+    
+    const get_product = useCallback( async()=> {
         const product = await api.get(`product/${id}`);
         setName(product.data.name);
         setQuant(product.data.quant);
         setUnitary_value(product.data.unitary_value);
-    }
+    }, [id])
+
 
     useEffect(() => {
         get_product();
-    }, [])
+    }, [get_product])
 
     return (
         <div className="form_container">

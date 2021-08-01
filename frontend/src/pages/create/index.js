@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState} from 'react';
 import api from '../../services/api'
 import { useHistory } from 'react-router';
 import './styles.css'
 
 export default function Create(props) {
-    const [name, setName] = useState(null);
+    const [name, setName] = useState("");
     const [quant, setQuant] = useState(0);
-    const [unitary_value, setUnitary_value] = useState(null);
+    const [unitary_value, setUnitary_value] = useState("");
     const history = useHistory();
 
     async function handle_create(e) {
@@ -21,7 +20,7 @@ export default function Create(props) {
             unitary_value
         }
         console.log(product);
-        const response = await api.post('product', product);
+        await api.post('product', product);
         history.push('/');
     }
 

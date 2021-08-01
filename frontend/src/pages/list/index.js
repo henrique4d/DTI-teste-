@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import api from '../../services/api'
 import { useHistory } from 'react-router';
 import './styles.css'
@@ -6,11 +6,8 @@ import './styles.css'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import TableFooter from '@material-ui/core/TableFooter';
-import Paper from '@material-ui/core/Paper';
 import Pagination from '@material-ui/lab/Pagination';
 
 export default function List() {
@@ -20,15 +17,17 @@ export default function List() {
 
     const history = useHistory();
 
-    async function get_products() {
+    const get_products = useCallback(async () => {
         const products = await api.get(`product?page=${page}`);
         setProducts(products.data.data);
         const num_pages = products.data.num_pages;
         setNumPages(num_pages);
         if (page > num_pages) setPage(num_pages);
-    }
+    }, [page])
+
+
     async function handle_delete(id) {
-        const response = await api.delete(`product/${id}`);
+        await api.delete(`product/${id}`);
         get_products();
     }
     async function handle_edit(id) {
@@ -37,7 +36,7 @@ export default function List() {
 
     useEffect(() => {
         get_products();
-    }, [page])
+    }, [get_products])
 
     return (
         <div className="container">
@@ -81,7 +80,7 @@ export default function List() {
                 <TableBody>
                     {
                         products.map((product) =>
-                            <TableRow className="row">
+                            <TableRow key={product.id} className="row">
                                 <TableCell>
                                     <text className="row_text">
                                         {product.name}
